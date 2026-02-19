@@ -10,8 +10,8 @@ use maprando::{
     randomize::{DifficultyConfig, ItemPriorityGroup, Randomization, get_starting_items},
     seed_repository::{Seed, SeedFile},
     settings::{
-        AreaAssignmentBaseOrder, AreaAssignmentPreset, DoorLocksSize, ETankRefill,
-        FillerItemPriority, ItemCount, RandomizerSettings, SpeedBooster, WallJump,
+        AreaAssignmentBaseOrder, AreaAssignmentPreset, DisableETankSetting, DoorLocksSize,
+        ETankRefill, FillerItemPriority, ItemCount, RandomizerSettings, SpeedBooster, WallJump,
         get_objective_groups,
     },
     spoiler_log::SpoilerLog,
@@ -59,6 +59,7 @@ pub struct SeedHeaderTemplate<'a> {
     momentum_conservation: bool,
     fanfares: String,
     etank_refill: String,
+    disableable_etanks: String,
     doors: String,
     start_location_mode: String,
     map_layout: String,
@@ -453,6 +454,16 @@ pub fn render_seed(
             ETankRefill::Disabled => "Disabled",
             ETankRefill::Vanilla => "Vanilla",
             ETankRefill::Full => "Full",
+        }
+        .to_string(),
+        disableable_etanks: match seed_data
+            .settings
+            .quality_of_life_settings
+            .disableable_etanks
+        {
+            DisableETankSetting::Off => "Off",
+            DisableETankSetting::Standard => "Standard",
+            DisableETankSetting::Unrestricted => "Unrestricted",
         }
         .to_string(),
         doors: seed_data.doors.clone(),

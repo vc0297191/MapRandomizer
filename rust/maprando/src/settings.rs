@@ -119,6 +119,14 @@ pub enum StartingItemsPreset {
     None,
     All,
 }
+
+#[derive(Serialize, Deserialize, Clone, PartialEq)]
+pub enum DisableETankSetting {
+    Off,
+    Standard,
+    Unrestricted,
+}
+
 #[derive(Serialize, Deserialize, Clone, PartialEq)]
 pub struct QualityOfLifeSettings {
     pub preset: Option<String>,
@@ -149,7 +157,7 @@ pub struct QualityOfLifeSettings {
     // Energy and reserves
     pub etank_refill: ETankRefill,
     pub energy_station_reserves: bool,
-    pub disableable_etanks: bool,
+    pub disableable_etanks: DisableETankSetting,
     pub reserve_backward_transfer: bool,
     // Other:
     pub buffed_drops: bool,
@@ -817,7 +825,17 @@ fn upgrade_qol_settings(settings: &mut serde_json::Value) -> Result<()> {
         qol_settings.insert("energy_station_reserves".to_string(), false.into());
     }
     if !qol_settings.contains_key("disableable_etanks") {
-        qol_settings.insert("disableable_etanks".to_string(), false.into());
+        qol_settings.insert("disableable_etanks".to_string(), "Off".into());
+    } else {
+        match qol_settings["disableable_etanks"].as_bool() {
+            Some(false) => {
+                qol_settings.insert("disableable_etanks".to_string(), "Off".into());
+            }
+            Some(true) => {
+                qol_settings.insert("disableable_etanks".to_string(), "Standard".into());
+            }
+            None => {}
+        };
     }
     if !qol_settings.contains_key("reserve_backward_transfer") {
         qol_settings.insert("reserve_backward_transfer".to_string(), false.into());
