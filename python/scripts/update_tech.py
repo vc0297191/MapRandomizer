@@ -27,13 +27,6 @@ for c in tech_json["techCategories"]:
 
 
 raw_tech_data = requests.get(videos_url + "/tech").json()
-raw_tech_data.append({
-    "tech_id": 10001,
-    "name": "canHyperGateShot",
-    "difficulty": "Hard",
-    "video_id": 3140,
-})
-tech_id_order.append(10001)
 
 tech_data_map = {x["tech_id"]: x for x in raw_tech_data}
 tech_data = [tech_data_map[tech_id] for tech_id in tech_id_order]

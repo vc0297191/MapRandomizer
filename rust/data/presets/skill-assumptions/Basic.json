@@ -325,11 +325,6 @@
             "enabled": false
         },
         {
-            "id": 10001,
-            "name": "canHyperGateShot",
-            "enabled": false
-        },
-        {
             "id": 4,
             "name": "canPrepareForNextRoom",
             "enabled": false

@@ -328,11 +328,6 @@
                 "enabled": false
             },
             {
-                "id": 10001,
-                "name": "canHyperGateShot",
-                "enabled": false
-            },
-            {
                 "id": 4,
                 "name": "canPrepareForNextRoom",
                 "enabled": false
@@ -4390,7 +4385,7 @@
             },
             {
                 "item": "SparkBooster",
-                "priority": "Default"
+                "priority": "Late"
             },
             {
                 "item": "BlueBooster",
